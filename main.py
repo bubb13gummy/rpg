@@ -37,7 +37,8 @@ Potions : {player['potions']}
 def level_up():
     need = player["level"] * 50
 
-    if player["exp"] >= need:
+    # always check
+    while player["exp"] >= need:
         player["level"] += 1
         player["max_hp"] += 20
         player["attack"] += 5
@@ -108,7 +109,7 @@ Your HP: {player['hp']}/{player['max_hp']}
 
         if enemy["hp"] > 0:
             enemy_damage = random.randint(
-                enemy["attack"] - 2,
+                max(0, enemy["attack"] - 2), #check bound
                 enemy["attack"] + 2
             )
 
