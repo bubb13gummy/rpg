@@ -119,7 +119,8 @@ Your HP: {player['hp']}/{player['max_hp']}
     if player["hp"] <= 0:
         print("\nYou died...")
         print("Game Over.")
-        exit()
+        player["alive"] = False
+        return
 
     print(f"\nYou defeated {enemy['name']}!")
 
