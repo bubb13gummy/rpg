@@ -109,7 +109,7 @@ Your HP: {player['hp']}/{player['max_hp']}
 
         if enemy["hp"] > 0:
             enemy_damage = random.randint(
-                enemy["attack"] - 2,
+                max(0, enemy["attack"] - 2), #check bound
                 enemy["attack"] + 2
             )
 
