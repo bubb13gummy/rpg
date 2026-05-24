@@ -22,7 +22,7 @@ enemies = [
 def show_stats():
     print(f"""
 =========================
-{player['name']} STATS
+      {player['name']}
 =========================
 Level   : {player['level']}
 HP      : {player['hp']}/{player['max_hp']}
@@ -144,7 +144,7 @@ def shop():
     while True:
         print(f"""
 =========================
-SHOP
+          SHOP
 =========================
 Gold: {player['gold']}
 
@@ -174,10 +174,14 @@ Gold: {player['gold']}
 
 def main_menu():
     while True:
-        print("""
+        print(f"""
 =========================
- TEXT RPG
+        TEXT RPG
 =========================
+
+HP: {player['hp']}/{player['max_hp']}
+EXP: {player['exp']}
+Level: {player["level"]}
 
 1. Battle
 2. Stats
@@ -204,12 +208,17 @@ def main_menu():
             print("\nInvalid choice.")
 
 
-print("=========================")
-print(" WELCOME TO TEXT RPG ")
-print("=========================")
+while True:
+    print("=========================")
+    print(" WELCOME TO TEXT RPG ")
+    print("=========================")
 
-player["name"] = input("\nEnter your name: ")
+    player["name"] = input("\nEnter your name: ")
 
-print(f"\nWelcome, {player['name']}!")
+    if len(player["name"]) > 10:
+        print("[-] Name must be length 10!!\n\n")
+        continue
+
+    print(f"\nWelcome, {player['name']}!")
 
 main_menu()
