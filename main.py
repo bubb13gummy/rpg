@@ -37,7 +37,8 @@ Potions : {player['potions']}
 def level_up():
     need = player["level"] * 50
 
-    if player["exp"] >= need:
+    # always check
+    while player["exp"] >= need:
         player["level"] += 1
         player["max_hp"] += 20
         player["attack"] += 5
