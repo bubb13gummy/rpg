@@ -15,7 +15,9 @@ enemies = [
     {"name": "Slime", "hp": 30, "attack": 5, "gold": 10, "exp": 15},
     {"name": "Goblin", "hp": 50, "attack": 8, "gold": 20, "exp": 25},
     {"name": "Skeleton", "hp": 70, "attack": 12, "gold": 35, "exp": 40},
-    {"name": "Dark Knight", "hp": 100, "attack": 18, "gold": 60, "exp": 70}
+    {"name": "Dark Knight", "hp": 100, "attack": 18, "gold": 60, "exp": 70},
+    {"name": "Bubble Slime", "hp": 120,
+"attack": 23, "gold": 70, "exp": 80}
 ]
 
 
