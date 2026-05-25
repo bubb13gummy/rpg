@@ -53,20 +53,20 @@ def battle():
     while enemy["hp"] > 0 and player["hp"] > 0:
 
         print(f"""
-        Your HP: {player['hp']}/{player['max_hp']}
+Your HP: {player['hp']}/{player['max_hp']}
         {enemy['name']} HP: {enemy['hp']}
 
-        [1] Attack
-        [2] Heal
-        [3] Run
-        """)
+[1] Attack
+[2] Heal
+[3] Run
+""")
 
         choice = input("> ")
 
         if choice == "1":
             damage = random.randint(
-            player["attack"] - 3,
-            player["attack"] + 3
+                player["attack"] - 3,
+                player["attack"] + 3
         )
         enemy["hp"] -= damage
         print(f"\nYou hit {enemy['name']} for {damage} damage!")
@@ -106,6 +106,7 @@ def battle():
             print("\nInvalid choice.")
             continue
 
+        # Enemy turn
         if enemy["hp"] > 0:
             enemy_damage = random.randint(
                 max(0, enemy["attack"] - 2), #check bound
@@ -132,7 +133,7 @@ def battle():
 
     drop = random.randint(1, 100)
 
-    if drop <= 30:
+    if random.randint(1,100) <= 30:
         player["potions"] += 1
         print("Enemy dropped a potion!")
 
