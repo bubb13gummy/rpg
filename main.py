@@ -16,8 +16,7 @@ enemies = [
     {"name": "Goblin", "hp": 50, "attack": 8, "gold": 20, "exp": 25},
     {"name": "Skeleton", "hp": 70, "attack": 12, "gold": 35, "exp": 40},
     {"name": "Dark Knight", "hp": 100, "attack": 18, "gold": 60, "exp": 70},
-    {"name": "Bubble Slime", "hp": 120,
-"attack": 23, "gold": 70, "exp": 80}
+    {"name": "Bubble Slime", "hp": 120, "attack": 23, "gold": 70, "exp": 80}
 ]
 
 
@@ -61,21 +60,21 @@ Your HP: {player['hp']}/{player['max_hp']}
 [3] Run
 """)
 
-        choice = input("> ")
+        choice = int(input("> "))
 
-        if choice == "1":
+        if choice == 1:
             damage = random.randint(
-                player["attack"] - 3,
+                max(0, player["attack"] - 3),
                 player["attack"] + 3
-        )
-        enemy["hp"] -= damage
-        print(f"\nYou hit {enemy['name']} for {damage} damage!")
+            )
+            enemy["hp"] -= damage
+            print(f"\nYou hit {enemy['name']} for {damage} damage!")
 
-        # เช็คว่าศัตรูตายหรือยัง ถ้าตายแล้วให้ออกจากลูปทันที
-        if enemy["hp"] <= 0:
-            break
+            # เช็คว่าศัตรูตายหรือยัง ถ้าตายแล้วให้ออกจากลูปทันที
+            if enemy["hp"] <= 0:
+                break
 
-        elif choice == "2":
+        elif choice == 2:
 
             if player["potions"] > 0:
                 heal = random.randint(20, 35)
@@ -92,7 +91,7 @@ Your HP: {player['hp']}/{player['max_hp']}
             else:
                 print("\nNo potions left!")
 
-        elif choice == "3":
+        elif choice == 3:
 
             chance = random.randint(1, 100)
 
@@ -117,11 +116,11 @@ Your HP: {player['hp']}/{player['max_hp']}
 
             print(f"{enemy['name']} hit you for {enemy_damage} damage!")
 
-    if player["hp"] <= 0:
-        print("\nYou died...")
-        print("Game Over.")
-        player["alive"] = False
-        return
+        if player["hp"] <= 0:
+            print("\nYou died...")
+            print("Game Over.")
+            player["alive"] = False
+            break
 
     print(f"\nYou defeated {enemy['name']}!")
 
@@ -130,8 +129,6 @@ Your HP: {player['hp']}/{player['max_hp']}
 
     print(f"You gained {enemy['gold']} gold!")
     print(f"You gained {enemy['exp']} EXP!")
-
-    drop = random.randint(1, 100)
 
     if random.randint(1,100) <= 30:
         player["potions"] += 1
@@ -172,6 +169,8 @@ Gold: {player['gold']}
             print("\nInvalid choice.")
 
 
+state = True;
+
 def main_menu():
     while True:
         print(f"""
@@ -202,6 +201,8 @@ Level: {player["level"]}
 
         elif choice == "4":
             print("\nGoodbye.")
+            global state
+            state = False;
             break
 
         else:
@@ -218,7 +219,8 @@ while True:
     if len(player["name"]) > 10:
         print("[-] Name must be length 10!!\n\n")
         continue
-
-    print(f"\nWelcome, {player['name']}!")
-
-main_menu()
+    else:
+        print(f"\nWelcome, {player['name']}!")
+        main_menu()
+        if state == False:
+            break
