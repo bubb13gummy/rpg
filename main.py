@@ -35,18 +35,13 @@ Potions : {player['potions']}
 
 
 def level_up():
-    need = player["level"] * 50
-
-    # always check
-    while player["exp"] >= need:
+    while player["exp"] >= player["level"] * 50:
+        player["exp"] -= player["level"] * 50  # หัก EXP ที่ใช้ไป
         player["level"] += 1
         player["max_hp"] += 20
         player["attack"] += 5
         player["hp"] = player["max_hp"]
-
-        print("\nLEVEL UP!")
-        print(f"You are now level {player['level']}!")
-
+        print(f"\nLEVEL UP! You are now level {player['level']}!")
 
 def battle():
     enemy = random.choice(enemies).copy()
@@ -56,25 +51,27 @@ def battle():
     while enemy["hp"] > 0 and player["hp"] > 0:
 
         print(f"""
-Your HP: {player['hp']}/{player['max_hp']}
-{enemy['name']} HP: {enemy['hp']}
+        Your HP: {player['hp']}/{player['max_hp']}
+        {enemy['name']} HP: {enemy['hp']}
 
-[1] Attack
-[2] Heal
-[3] Run
-""")
+        [1] Attack
+        [2] Heal
+        [3] Run
+        """)
 
         choice = input("> ")
 
         if choice == "1":
             damage = random.randint(
-                player["attack"] - 3,
-                player["attack"] + 3
-            )
+            player["attack"] - 3,
+            player["attack"] + 3
+        )
+        enemy["hp"] -= damage
+        print(f"\nYou hit {enemy['name']} for {damage} damage!")
 
-            enemy["hp"] -= damage
-
-            print(f"\nYou hit {enemy['name']} for {damage} damage!")
+        # เช็คว่าศัตรูตายหรือยัง ถ้าตายแล้วให้ออกจากลูปทันที
+        if enemy["hp"] <= 0:
+            break
 
         elif choice == "2":
 
