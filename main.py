@@ -60,7 +60,11 @@ Your HP: {player['hp']}/{player['max_hp']}
 [3] Run
 """)
 
-        choice = int(input("> "))
+        try:
+            choice = int(input("> "))
+        except ValueError:
+            print("Wrong input type!")
+            continue
 
         if choice == 1:
             damage = random.randint(
@@ -121,20 +125,22 @@ Your HP: {player['hp']}/{player['max_hp']}
             print("Game Over.")
             player["alive"] = False
             break
+    
+    # Reward if player still alive
+    if player["hp"] > 0:
+        print(f"\nYou defeated {enemy['name']}!")
 
-    print(f"\nYou defeated {enemy['name']}!")
+        player["gold"] += enemy["gold"]
+        player["exp"] += enemy["exp"]
 
-    player["gold"] += enemy["gold"]
-    player["exp"] += enemy["exp"]
+        print(f"You gained {enemy['gold']} gold!")
+        print(f"You gained {enemy['exp']} EXP!")
 
-    print(f"You gained {enemy['gold']} gold!")
-    print(f"You gained {enemy['exp']} EXP!")
+        if random.randint(1,100) <= 30:
+            player["potions"] += 1
+            print("Enemy dropped a potion!")
 
-    if random.randint(1,100) <= 30:
-        player["potions"] += 1
-        print("Enemy dropped a potion!")
-
-    level_up()
+        level_up()
 
 
 def shop():
@@ -169,8 +175,6 @@ Gold: {player['gold']}
             print("\nInvalid choice.")
 
 
-state = True;
-
 def main_menu():
     while True:
         print(f"""
@@ -201,8 +205,6 @@ Level: {player["level"]}
 
         elif choice == "4":
             print("\nGoodbye.")
-            global state
-            state = False;
             break
 
         else:
@@ -222,5 +224,4 @@ while True:
     else:
         print(f"\nWelcome, {player['name']}!")
         main_menu()
-        if state == False:
-            break
+        break
